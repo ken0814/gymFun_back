@@ -24,7 +24,8 @@ import {
 import {
   createHistory,
   getHistory,
-  getAllHistory
+  getAllHistory,
+  editHistory
 } from '../controllers/histories.js'
 import {
   getRegister
@@ -58,6 +59,7 @@ router.delete('/:id', auth.jwt, admin, deleteUser)
 router.post('/course', auth.jwt, addCourse)
 router.get('/courses', auth.jwt, getCourses)
 router.get('/register', auth.jwt, getRegister)
+router.patch('/history/:id', auth.jwt, editHistory)
 
 // profile 增改查
 router.post('/profile', content('multipart/form-data'), auth.jwt, upload, createProfile)

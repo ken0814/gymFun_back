@@ -57,3 +57,15 @@ export const getAllHistory = async (req, res) => {
     res.status(500).send({ success: false, message: '伺服器錯誤' })
   }
 }
+
+export const editHistory = async (req, res) => {
+  try {
+    const data = {
+      status: req.body.status
+    }
+    const result = await histories.findByIdAndUpdate(req.params.id, data, { new: true })
+    res.status(200).send({ success: true, message: '', result })
+  } catch (error) {
+    res.status(500).send({ success: false, message: '伺服器錯誤' })
+  }
+}
