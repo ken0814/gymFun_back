@@ -10,6 +10,7 @@ import usersRouter from './routes/users.js'
 import coursesRouter from './routes/courses.js'
 import ordersRouter from './routes/orders.js'
 import advertisesRouter from './routes/advertises.js'
+import historiesRouter from './routes/histories.js'
 
 mongoose.connect(process.env.DB_URL)
 mongoose.set('sanitizeFilter', true)
@@ -51,6 +52,7 @@ app.use('/users', usersRouter)
 app.use('/courses', coursesRouter)
 app.use('/orders', ordersRouter)
 app.use('/bill', advertisesRouter)
+app.use('/registration', historiesRouter)
 
 app.all('*', (req, res) => {
   res.status(404).send({ success: false, message: '找不到' })

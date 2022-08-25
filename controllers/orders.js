@@ -3,9 +3,6 @@ import orders from '../models/orders.js'
 
 export const createOrder = async (req, res) => {
   try {
-    if (req.user.cart.length === 0) {
-      return res.status(400).send({ success: false, message: '購物車為空' })
-    }
     let result = await users.findById(req.user._id, 'cart').populate('cart.product')
     const canCheckout = result.cart.every(item => item.product.sell)
     if (!canCheckout) {

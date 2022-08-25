@@ -46,7 +46,6 @@ export const login = async (req, res) => {
         token,
         account: req.user.account,
         email: req.user.email,
-        cart: req.user.cart.length,
         role: req.user.role
       }
     })
@@ -85,7 +84,6 @@ export const getUser = (req, res) => {
       result: {
         account: req.user.account,
         email: req.user.email,
-        cart: req.user.cart.length,
         role: req.user.role
       }
     })
@@ -106,8 +104,15 @@ export const getAllUsers = async (req, res) => {
 export const getAllCoachs = async (req, res) => {
   try {
     const result = await users.find({ role: 1 }).populate('profile.document')
-    res.status(200).send({ success: true, message: '', result })
+    const final = []
+    for (const idx in result) {
+      if (result[idx].profile.length === 0) continue
+      else if (result[idx].profile[0].document.sell === false) continue
+      else final.push(result[idx])
+    }
+    res.status(200).send({ success: true, message: '', final })
   } catch (error) {
+    console.log(error)
     res.status(500).send({ success: false, message: '伺服器錯誤' })
   }
 }
@@ -115,7 +120,13 @@ export const getAllCoachs = async (req, res) => {
 export const getAllStudents = async (req, res) => {
   try {
     const result = await users.find({ role: 0 }).populate('profile.document')
-    res.status(200).send({ success: true, message: '', result })
+    const final = []
+    for (const idx in result) {
+      if (result[idx].profile.length === 0) continue
+      else if (result[idx].profile[0].document.sell === false) continue
+      else final.push(result[idx])
+    }
+    res.status(200).send({ success: true, message: '', final })
   } catch (error) {
     res.status(500).send({ success: false, message: '伺服器錯誤' })
   }

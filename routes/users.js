@@ -21,6 +21,14 @@ import {
   getProfile,
   editProfile
 } from '../controllers/profile.js'
+import {
+  createHistory,
+  getHistory,
+  getAllHistory
+} from '../controllers/histories.js'
+import {
+  getRegister
+} from '../controllers/getRegisters.js'
 
 const router = express.Router()
 
@@ -49,9 +57,16 @@ router.delete('/:id', auth.jwt, admin, deleteUser)
 // coach
 router.post('/course', auth.jwt, addCourse)
 router.get('/courses', auth.jwt, getCourses)
+router.get('/register', auth.jwt, getRegister)
 
 // profile 增改查
 router.post('/profile', content('multipart/form-data'), auth.jwt, upload, createProfile)
 router.get('/profile', auth.jwt, getProfile)
 router.patch('/profile/:id', content('multipart/form-data'), auth.jwt, upload, editProfile)
+
+// history
+router.post('/histories', content('application/json'), auth.jwt, createHistory)
+router.get('/histories', auth.jwt, getAllHistory)
+router.get('/histories/:id', auth.jwt, getHistory)
+
 export default router

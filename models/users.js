@@ -32,18 +32,20 @@ const schema = new mongoose.Schema({
   image: {
     type: String
   },
-  cart: {
+  histories: {
     type: [
       {
-        course: {
-          type: String,
-          ref: 'courses',
-          required: [true, '缺少課程欄位']
+        history: {
+          type: mongoose.ObjectId,
+          ref: 'histories'
         },
-        status: {
-          type: Boolean,
-          required: [true, '缺少報名狀態'],
-          default: false
+        course: {
+          type: mongoose.ObjectId,
+          ref: 'courses'
+        },
+        coachDocument: {
+          type: mongoose.ObjectId,
+          ref: 'profiles'
         }
       }
     ]
