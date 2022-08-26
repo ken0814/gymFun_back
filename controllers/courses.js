@@ -38,7 +38,7 @@ export const editCourse = async (req, res) => {
       time: req.body.time
     }
     if (req.file) data.image = req.file.path
-    const result = await courses.findByIdAndUpdate(req.params.id, data, { new: true })
+    const result = await courses.findByIdAndUpdate(req.params.id, data, { new: true }).populate('coach')
     res.status(200).send({ success: true, message: '', result })
   } catch (error) {
     if (error.name === 'ValidationError') {
