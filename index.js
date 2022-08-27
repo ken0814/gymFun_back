@@ -8,7 +8,6 @@ import rateLimit from 'express-rate-limit'
 import './passport/passport.js'
 import usersRouter from './routes/users.js'
 import coursesRouter from './routes/courses.js'
-import ordersRouter from './routes/orders.js'
 import advertisesRouter from './routes/advertises.js'
 import historiesRouter from './routes/histories.js'
 
@@ -50,7 +49,6 @@ app.use(mongoSanitize())
 
 app.use('/users', usersRouter)
 app.use('/courses', coursesRouter)
-app.use('/orders', ordersRouter)
 app.use('/bill', advertisesRouter)
 app.use('/registration', historiesRouter)
 
