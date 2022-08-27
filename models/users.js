@@ -72,6 +72,20 @@ const schema = new mongoose.Schema({
       }
     ]
   },
+  messages: {
+    type: [
+      {
+        message: {
+          type: mongoose.ObjectId,
+          ref: 'messages'
+        },
+        user: {
+          type: mongoose.ObjectId,
+          ref: "users"
+        }
+      }
+    ]
+  },
   role: {
     type: Number,
     // 0 學員 1 教練 2 管理員

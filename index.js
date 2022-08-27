@@ -4,12 +4,12 @@ import mongoose from 'mongoose'
 import cors from 'cors'
 import mongoSanitize from 'express-mongo-sanitize'
 import rateLimit from 'express-rate-limit'
-
 import './passport/passport.js'
 import usersRouter from './routes/users.js'
 import coursesRouter from './routes/courses.js'
 import advertisesRouter from './routes/advertises.js'
 import historiesRouter from './routes/histories.js'
+import messagesRouter from './routes/messages.js'
 
 mongoose.connect(process.env.DB_URL)
 mongoose.set('sanitizeFilter', true)
@@ -51,6 +51,7 @@ app.use('/users', usersRouter)
 app.use('/courses', coursesRouter)
 app.use('/bill', advertisesRouter)
 app.use('/registration', historiesRouter)
+app.use('/messages', messagesRouter)
 
 app.all('*', (req, res) => {
   res.status(404).send({ success: false, message: '找不到' })

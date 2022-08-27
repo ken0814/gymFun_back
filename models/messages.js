@@ -5,8 +5,9 @@ const schema = new mongoose.Schema({
     type: String,
     required: [true, '缺少訊息']
   },
-  user: {
-    type: mongoose.ObjectId
+  date: {
+    type: Date,
+    default: Date.now()
   }
 }, { version: false })
 
