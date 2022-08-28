@@ -79,9 +79,13 @@ const schema = new mongoose.Schema({
           type: mongoose.ObjectId,
           ref: 'messages'
         },
-        user: {
+        sender: {
           type: mongoose.ObjectId,
           ref: "users"
+        },
+        senderProfile: {
+          type: mongoose.ObjectId,
+          ref: 'profiles'
         }
       }
     ]

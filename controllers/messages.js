@@ -6,12 +6,11 @@ export const createMessages = async (req, res) => {
     const result = await messages.create({
       content: req.body.content
     })
-    console.log(req.params.id)
     const deal = await users.findById(req.params.id)
-    console.log(deal)
     deal.messages.push({
       message: result._id,
-      user: req.user._id
+      sender: req.user._id,
+      senderProfile: req.user.profile[0].document
     })
     await deal.save()
     res.status(200).send({ success: true, message: '', result })
@@ -29,7 +28,7 @@ export const createMessages = async (req, res) => {
 
 export const getMessage = async (req, res) => {
   try {
-    const result = await users.findById(req.user._id, 'messages').populate('messages.message messages.user')
+    const result = await users.findById(req.user._id, 'messages').populate('messages.message messages.sender messages.senderProfile')
     res.status(200).send({ success: true, message: '', result })
   } catch (error) {
     console.log(error)
