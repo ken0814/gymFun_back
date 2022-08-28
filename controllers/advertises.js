@@ -10,7 +10,6 @@ export const createAdvertise = async (req, res) => {
     })
     res.status(200).send({ success: true, message: '', result })
   } catch (error) {
-    console.log(error)
     if (error.name === 'ValidationError') {
       const key = Object.keys(error.errors)[0]
       const message = error.errors[key].message

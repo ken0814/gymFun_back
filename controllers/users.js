@@ -112,7 +112,6 @@ export const getAllCoachs = async (req, res) => {
     }
     res.status(200).send({ success: true, message: '', final })
   } catch (error) {
-    console.log(error)
     res.status(500).send({ success: false, message: '伺服器錯誤' })
   }
 }

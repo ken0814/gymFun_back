@@ -15,7 +15,6 @@ export const createMessages = async (req, res) => {
     await deal.save()
     res.status(200).send({ success: true, message: '', result })
   } catch (error) {
-    console.log(error)
     if (error.name === 'ValidationError') {
       const key = Object.keys(error.errors)[0]
       const message = error.errors[key].message
@@ -31,7 +30,6 @@ export const getMessage = async (req, res) => {
     const result = await users.findById(req.user._id, 'messages').populate('messages.message messages.sender messages.senderProfile')
     res.status(200).send({ success: true, message: '', result })
   } catch (error) {
-    console.log(error)
     res.status(500).send({ success: false, message: '伺服器錯誤' })
   }
 }

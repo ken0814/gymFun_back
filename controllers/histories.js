@@ -31,7 +31,6 @@ export const createHistory = async (req, res) => {
     }
 
   } catch (error) {
-    console.log(error)
     res.status(500).send({ success: false, message: '伺服器錯誤' })
   }
 }
@@ -40,10 +39,8 @@ export const getHistory = async (req, res) => {
   try {
     const result = await histories.findById(req.params.id).populate('course')
     const coachName = await profiles.findById(result.course.profile, 'name')
-    console.log(result)
     res.status(200).send({ success: true, message: '', result, coachName })
   } catch (error) {
-    console.log(error)
     res.status(500).send({ success: false, message: '伺服器錯誤' })
   }
 }
@@ -53,7 +50,6 @@ export const getAllHistory = async (req, res) => {
     const result = await users.findById(req.user._id, 'histories').populate('histories.course histories.history histories.coachDocument')
     res.status(200).send({ success: true, message: '', result })
   } catch (error) {
-    console.log(error)
     res.status(500).send({ success: false, message: '伺服器錯誤' })
   }
 }
