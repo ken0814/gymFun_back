@@ -52,7 +52,7 @@ router.get('/coach', getAllCoachs)
 // 取得所有學生
 router.get('/student', getAllStudents)
 // 取得所有使用者
-router.get('/all', auth.jwt, admin, getAllUsers)
+router.get('/all', getAllUsers)
 // 刪除使用者
 router.delete('/:id', auth.jwt, admin, deleteUser)
 // coach
