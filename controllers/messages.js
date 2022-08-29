@@ -36,3 +36,17 @@ export const getMessage = async (req, res) => {
     res.status(500).send({ success: false, message: '伺服器錯誤' })
   }
 }
+
+export const deleteMessage = async (req, res) => {
+  try {
+    const result = await messages.findByIdAndDelete(req.params.id)
+    for (const idx in req.user.messages) {
+      if (req.user.messages[idx].message.toString() === req.params.id) req.user.messages.splice(idx, 1)
+    }
+    req.user.save()
+    res.status(200).send({ success: true, message: '' })
+  } catch (error) {
+    console.log(error)
+    res.status(500).send({ success: false, message: '伺服器錯誤' })
+  }
+}
