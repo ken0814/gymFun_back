@@ -3,17 +3,20 @@ import users from '../models/users.js'
 
 export const createMessages = async (req, res) => {
   try {
-    const result = await messages.create({
-      content: req.body.content
-    })
-    const deal = await users.findById(req.params.id)
-    deal.messages.push({
-      message: result._id,
-      sender: req.user._id,
-      senderProfile: req.user.profile[0].document
-    })
-    await deal.save()
-    res.status(200).send({ success: true, message: '', result })
+    if (req.params.id === req.user._id.toString()) return res.status(400).send({ success: true, message: '不能傳訊息給自己' })
+    else {
+      const result = await messages.create({
+        content: req.body.content
+      })
+      const deal = await users.findById(req.params.id)
+      deal.messages.push({
+        message: result._id,
+        sender: req.user._id,
+        senderProfile: req.user.profile[0].document
+      })
+      await deal.save()
+      res.status(200).send({ success: true, message: '', result })
+    }
   } catch (error) {
     if (error.name === 'ValidationError') {
       const key = Object.keys(error.errors)[0]
