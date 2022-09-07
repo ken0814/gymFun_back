@@ -1,3 +1,4 @@
+import users from '../models/users.js'
 import courses from '../models/courses.js'
 
 export const createCourse = async (req, res) => {
@@ -57,7 +58,12 @@ export const deleteCourse = async (req, res) => {
     if (idx > -1) {
       req.user.courses.splice(idx, 1)
       await req.user.save()
-    } else return res.status(400).send({ success: true, message: '找不到' })
+    } else {
+      const coach = await users.findById(req.body.coachId)
+      const key = await coach.courses.findIndex(item => item.course.toString() === req.params.id)
+      coach.courses.splice(idx, 1)
+      coach.save()
+    }
     await courses.findByIdAndDelete(req.params.id)
     res.status(200).send({ success: true, message: '' })
   } catch (error) {
